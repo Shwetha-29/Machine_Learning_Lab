@@ -1,14 +1,11 @@
-# Tuple (student IDs)
 student_ids = ('S101', 'S102', 'S103', 'S104')
 
-# Dictionary (student records)
 students = {
     'S101': {'name': 'Asha', 'assignment': 78, 'test': 80, 'attendance': 92, 'hours': 8},
     'S102': {'name': 'Ravi', 'assignment': 65, 'test': 68, 'attendance': 85, 'hours': 5},
     'S103': {'name': 'Meena', 'assignment': 88, 'test': 90, 'attendance': 96, 'hours': 10},
     'S104': {'name': 'Kiran', 'assignment': 55, 'test': 58, 'attendance': 78, 'hours': 4}
 }
-
 
 def calculate_average(assignment, test):
     return (assignment + test) / 2
