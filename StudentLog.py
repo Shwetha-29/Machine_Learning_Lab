@@ -1,22 +1,19 @@
 import re
 from datetime import datetime
 
-# ===============================
-# Student Class (OOP)
-# ===============================
 class Student:
     def __init__(self, sid, name):
         self.sid = sid
         self.name = name
         self.login_count = 0
         self.submit_count = 0
-        self.is_logged_in = False   # for abnormal behavior
+        self.is_logged_in = False   
         self.abnormal = False
 
     def add_activity(self, activity):
         if activity == "LOGIN":
             self.login_count += 1
-            if self.is_logged_in:        # LOGIN again without LOGOUT
+            if self.is_logged_in:        
                 self.abnormal = True
             self.is_logged_in = True
 
@@ -35,10 +32,6 @@ class Student:
             print("⚠ Abnormal Behavior: Multiple logins without logout")
         print()
 
-
-# ===============================
-# Step 1: Real-time logging
-# ===============================
 LOG_FILE = "student_log.txt"
 
 print("\n=== REAL-TIME STUDENT ACTIVITY LOGGER ===")
@@ -56,14 +49,12 @@ with open(LOG_FILE, "a") as file:
         activity = input("Activity: ").upper().strip()
 
         try:
-            # Validation
             if not re.fullmatch(r"S\d+", sid):
                 raise ValueError("Invalid Student ID")
 
             if activity not in ["LOGIN", "LOGOUT", "SUBMIT_ASSIGNMENT"]:
                 raise ValueError("Invalid Activity")
 
-            # Automatic date & time
             now = datetime.now()
             date = now.strftime("%Y-%m-%d")
             time = now.strftime("%H:%M:%S")
@@ -76,10 +67,6 @@ with open(LOG_FILE, "a") as file:
 
 print("\nLogging completed.\n")
 
-
-# ===============================
-# Step 2: Generator to read logs
-# ===============================
 def read_logs(filename):
     with open(filename, "r") as file:
         for line in file:
@@ -101,10 +88,6 @@ def read_logs(filename):
             except Exception:
                 print("Skipping invalid log entry:", line.strip())
 
-
-# ===============================
-# Step 3: Process logs
-# ===============================
 students = {}
 daily_stats = {}
 
@@ -115,15 +98,10 @@ for sid, name, activity, date in read_logs(LOG_FILE):
 
     students[sid].add_activity(activity)
 
-    # Daily activity statistics
     if date not in daily_stats:
         daily_stats[date] = 0
     daily_stats[date] += 1
 
-
-# ===============================
-# Step 4: Generate report
-# ===============================
 if not students:
     print("⚠ No valid student records found. Report not generated.")
 else:
@@ -145,7 +123,6 @@ else:
 
             report.write("\n")
 
-        # Daily statistics
         print("=== DAILY ACTIVITY STATISTICS ===")
         report.write("=== DAILY ACTIVITY STATISTICS ===\n")
 
